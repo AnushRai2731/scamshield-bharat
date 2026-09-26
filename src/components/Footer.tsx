@@ -1,0 +1,7 @@
+import { Link } from 'react-router-dom'
+import { ShieldCheck, PhoneCall } from 'lucide-react'
+export function Footer() { return <footer className="mt-24 border-t border-line bg-white"><div className="container-shell grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
+  <div><div className="mb-3 flex items-center gap-2 font-extrabold"><ShieldCheck className="text-brand" size={20}/>ScamShield Bharat</div><p className="max-w-sm text-sm leading-6 text-muted">AI-assisted guidance for the moment before you click, pay, or share. Built for ordinary Indian families.</p></div>
+  <div><p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-ink">Explore</p><div className="grid gap-2 text-sm text-muted"><Link to="/check" className="hover:text-brand">Check something</Link><Link to="/demo" className="hover:text-brand">Demo cases</Link><Link to="/learn" className="hover:text-brand">Learn about scams</Link></div></div>
+  <div><p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-ink">Need help now?</p><Link to="/emergency" className="flex items-center gap-2 text-sm font-bold text-brand"><PhoneCall size={16}/> I may have been scammed</Link><p className="mt-4 text-xs leading-5 text-muted">AI-assisted guidance. Verify important financial communication independently.</p></div>
+</div><div className="border-t border-line"><div className="container-shell flex flex-col justify-between gap-2 py-4 text-xs text-muted sm:flex-row"><span>© 2026 ScamShield Bharat</span><span>Privacy-first · No account required</span></div></div></footer> }
