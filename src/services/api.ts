@@ -1,6 +1,7 @@
 import type { AnalysisRecord, InputType } from '../types'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+// Production requests stay on the Vercel domain and are routed to the backend service.
+const API_BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8000' : '')
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   try {
