@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { ArrowUpRight, PhoneCall, ShieldCheck } from 'lucide-react'
+import { BrainCircuit, PhoneCall, ShieldCheck } from 'lucide-react'
 import { cn } from '../lib/utils'
 
 const links = [
@@ -17,7 +17,7 @@ export function Navbar() {
     <div className="container-shell flex h-[76px] items-center justify-between gap-4">
       <Link to="/" className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white shadow-card"><ShieldCheck size={20} strokeWidth={2.5} /></span><span className="flex flex-col text-left"><span className="font-extrabold tracking-tight text-ink">ScamShield Bharat</span><span className="font-label -mt-1 text-[10px] text-muted">Citizen Safety Copilot</span></span></Link>
       <nav className="hidden items-center gap-5 xl:flex">{links.map((link) => <NavLink key={link.to} to={link.to} className={({ isActive }) => cn('font-label text-xs font-semibold transition-colors', isActive ? 'text-brand' : 'text-muted hover:text-ink')}>{link.label}</NavLink>)}</nav>
-      <div className="flex items-center gap-2"><a className="hidden items-center gap-1.5 rounded-full bg-danger-soft px-3 py-2 font-label text-xs font-semibold text-danger-dark transition hover:opacity-90 sm:inline-flex" href="tel:1930"><PhoneCall size={14} />1930 Helpline</a><Link to="/check" className="btn-primary px-4 py-2.5 text-xs sm:px-5 sm:text-sm"><ShieldCheck size={15} />Check message</Link><span className="hidden h-8 w-8 items-center justify-center rounded-full bg-ink text-white sm:flex"><span className="font-label text-xs">SS</span></span></div>
+      <div className="flex items-center gap-2"><NavLink to="/ai" className={({ isActive }) => cn('inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-label text-xs font-semibold transition', isActive ? 'bg-brand-soft text-brand' : 'text-muted hover:bg-brand-soft hover:text-brand')}><BrainCircuit size={14} /><span className="hidden sm:inline">AI Engine</span><span className="sm:hidden">AI</span></NavLink><a className="hidden items-center gap-1.5 rounded-full bg-danger-soft px-3 py-2 font-label text-xs font-semibold text-danger-dark transition hover:opacity-90 sm:inline-flex" href="tel:1930"><PhoneCall size={14} />1930 Helpline</a><Link to="/check" className="btn-primary px-4 py-2.5 text-xs sm:px-5 sm:text-sm"><ShieldCheck size={15} />Check message</Link><span className="hidden h-8 w-8 items-center justify-center rounded-full bg-ink text-white sm:flex"><span className="font-label text-xs">SS</span></span></div>
     </div>
   </header>
 }

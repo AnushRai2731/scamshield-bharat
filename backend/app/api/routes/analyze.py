@@ -8,12 +8,13 @@ from app.services.scam_analyzer import analyze_text, analyze_file
 
 router=APIRouter(prefix='/analyze')
 
-def unavailable(): raise HTTPException(status_code=503, detail={'success':False,'error_code':'AI_UNAVAILABLE','message':'AI analysis is temporarily unavailable.'})
+def unavailable(message: str = 'AI analysis is temporarily unavailable.'):
+    raise HTTPException(status_code=503, detail={'success':False,'error_code':'AI_UNAVAILABLE','message':message})
 
 @router.post('/text')
 def analyze_message(payload: TextRequest):
     try: return analyze_text(clean_text(payload.text, settings.max_text_chars), payload.language)
-    except AIUnavailable: unavailable()
+    except AIUnavailable as exc: unavailable(str(exc))
 
 @router.post('/url')
 def analyze_url(payload: UrlRequest):
@@ -22,7 +23,7 @@ def analyze_url(payload: UrlRequest):
         metadata=f'URL metadata (appearance only, not proof of maliciousness): host={parsed}. User context: {clean_text(payload.context, settings.max_text_chars)}'
         return analyze_text(url, payload.language, 'url', metadata)
     except ValueError as exc: raise HTTPException(status_code=422, detail=str(exc))
-    except AIUnavailable: unavailable()
+    except AIUnavailable as exc: unavailable(str(exc))
 
 async def file_endpoint(file: UploadFile, language: str, input_type: str):
     try:
@@ -32,7 +33,7 @@ async def file_endpoint(file: UploadFile, language: str, input_type: str):
             if decoded: return analyze_text(decoded, language, 'qr', 'Decoded QR payload. It was not opened or executed.')
         return analyze_file(data,mime,language,input_type)
     except ValueError as exc: raise HTTPException(status_code=422, detail=str(exc))
-    except AIUnavailable: unavailable()
+    except AIUnavailable as exc: unavailable(str(exc))
 
 @router.post('/image')
 async def analyze_image(file: UploadFile=File(...), language: str=Form('English')): return await file_endpoint(file,language,'image')
