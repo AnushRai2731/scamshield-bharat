@@ -8,3 +8,6 @@ backend/app/**/__pycache__/
 backend/*.db
 *.pyc
 .DS_Store
+
+# Local Netlify folder
+.netlify
