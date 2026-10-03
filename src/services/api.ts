@@ -1,7 +1,9 @@
 import type { AnalysisRecord, InputType } from '../types'
 
 // Production requests stay on the Vercel domain and are routed to the backend service.
-const API_BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8000' : '')
+// Vite proxies /api to the local FastAPI server during development. A deployed
+// build uses the same-origin Vercel service unless an API base URL is supplied.
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   try {

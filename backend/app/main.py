@@ -6,7 +6,15 @@ from app.core.config import settings
 from app.services.history_service import init_db
 
 app=FastAPI(title='ScamShield Bharat API', version='1.0.0', description='AI-assisted scam safety analysis for Indian families.')
-app.add_middleware(CORSMiddleware, allow_origins=[settings.frontend_origin], allow_credentials=True, allow_methods=['GET','POST','DELETE'], allow_headers=['*'])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[settings.frontend_origin],
+    # Quick Tunnels use a new trycloudflare.com subdomain each time.
+    allow_origin_regex=r'https://.*\.trycloudflare\.com',
+    allow_credentials=True,
+    allow_methods=['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allow_headers=['*'],
+)
 
 @app.on_event('startup')
 def startup(): init_db()
